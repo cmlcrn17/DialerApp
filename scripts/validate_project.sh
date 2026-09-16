@@ -11,8 +11,15 @@ for path in (Path("DialerApp/Resources/Info.plist"), Path("DialerApp/Resources/D
 PY
 test -f DialerApp.xcodeproj/project.pbxproj
 
-grep -q 'CODE_SIGN_ENTITLEMENTS = DialerApp/Resources/DialerApp.entitlements' DialerApp.xcodeproj/project.pbxproj
-grep -q 'SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DIALER_ENABLE_LIVE_COMMUNICATION_KIT"' DialerApp.xcodeproj/project.pbxproj
+if grep -q 'CODE_SIGN_ENTITLEMENTS = DialerApp/Resources/DialerApp.entitlements' DialerApp.xcodeproj/project.pbxproj; then
+  echo "Managed dialing entitlement must not be enabled in the default build." >&2
+  exit 1
+fi
+
+if grep -q 'DIALER_ENABLE_LIVE_COMMUNICATION_KIT' DialerApp.xcodeproj/project.pbxproj; then
+  echo "LiveCommunicationKit must not be enabled in the default build." >&2
+  exit 1
+fi
 
 while IFS= read -r source; do
   name="$(basename "$source")"
