@@ -1,7 +1,10 @@
 import Foundation
 
 #if DIALER_ENABLE_LIVE_COMMUNICATION_KIT && canImport(LiveCommunicationKit)
-import LiveCommunicationKit
+// LiveCommunicationKit's ConversationManager does not currently expose
+// Sendable annotations to Swift 6 even though the framework owns the
+// synchronization of its asynchronous operations.
+@preconcurrency import LiveCommunicationKit
 
 /// Entitlement-gated iOS 26 adapter. This is intentionally compiled only for a
 /// provisioning profile approved for `com.apple.developer.dialing-app`.
