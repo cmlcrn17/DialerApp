@@ -3,24 +3,19 @@ import SwiftUI
 
 @MainActor
 final class CallCoordinator: ObservableObject {
-    @Published var presentedContact: Contact?
     @Published var errorMessage: String?
     private let service: any CallingService
 
     init(service: any CallingService) { self.service = service }
 
     func call(_ contact: Contact, context: ModelContext) {
-        presentedContact = contact
         Task {
-            try? await Task.sleep(for: .milliseconds(650))
             do {
                 try await service.call(phoneNumber: contact.primaryPhone)
                 context.insert(CallRecord(contactName: contact.displayName, phoneNumber: contact.primaryPhone,
                                           contactID: contact.id, company: contact.company))
                 try context.save()
-                presentedContact = nil
             } catch {
-                presentedContact = nil
                 errorMessage = error.localizedDescription
             }
         }
@@ -45,7 +40,6 @@ struct RootView: View {
         }
         .tint(.blue)
         .environmentObject(calls)
-        .fullScreenCover(item: $calls.presentedContact) { CallingTransitionView(contact: $0) }
         .alert("Arama başlatılamadı", isPresented: Binding(
             get: { calls.errorMessage != nil }, set: { if !$0 { calls.errorMessage = nil } }
         )) { Button("Tamam", role: .cancel) {} } message: { Text(calls.errorMessage ?? "") }
@@ -80,25 +74,5 @@ struct RootView: View {
         }
         try? context.save()
         didSeed = true
-    }
-}
-
-struct CallingTransitionView: View {
-    let contact: Contact
-    @State private var pulse = false
-    var body: some View {
-        VStack(spacing: 18) {
-            Spacer()
-            AvatarView(contact: contact, size: 150)
-            Text(contact.displayName).font(.largeTitle.bold()).multilineTextAlignment(.center)
-            Text(contact.company).font(.title3).foregroundStyle(.secondary)
-            Image(systemName: "phone.fill").font(.title).foregroundStyle(.white)
-                .frame(width: 72, height: 72).background(.green, in: Circle())
-                .scaleEffect(pulse ? 1.08 : 0.92).opacity(pulse ? 1 : 0.7)
-                .animation(.easeInOut(duration: 0.8).repeatForever(), value: pulse)
-            Text("Aranıyor…").font(.headline)
-            Text(PhoneNumber.formatted(contact.primaryPhone)).foregroundStyle(.secondary)
-            Spacer()
-        }.padding().onAppear { pulse = true }
     }
 }

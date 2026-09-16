@@ -23,6 +23,11 @@ if grep -Eq 'StartCellularConversationAction|TelephonyConversationManager|StartC
   exit 1
 fi
 
+if grep -Eq 'Task\.sleep|fullScreenCover\(item: \$calls\.presentedContact' DialerApp/Views/RootView.swift; then
+  echo "Contact calls must start without an artificial transition or delay." >&2
+  exit 1
+fi
+
 while IFS= read -r source; do
   name="$(basename "$source")"
   grep -q "$name" DialerApp.xcodeproj/project.pbxproj || {
