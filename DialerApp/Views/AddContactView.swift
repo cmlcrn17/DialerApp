@@ -32,20 +32,111 @@ struct AddContactView: View {
         _notes = State(initialValue: contact?.notes ?? ""); _favorite = State(initialValue: contact?.isFavorite ?? false)
         _photoData = State(initialValue: contact?.photoData); _selectedGroupIDs = State(initialValue: Set(contact?.groups.map(\.id) ?? []))
     }
-    private var canSave: Bool { !firstName.trimmingCharacters(in: .whitespaces).isEmpty && PhoneNumber.normalized(primaryPhone) != nil }
+    private var canSave: Bool {
+        !firstName.trimmingCharacters(in: .whitespaces).isEmpty
+            && PhoneNumber.normalized(primaryPhone) != nil
+    }
+
     var body: some View {
         NavigationStack {
             Form {
-                Section { HStack { Spacer(); PhotosPicker(selection: $photoItem, matching: .images) { VStack { if let photoData { AvatarView(initials: "", seed: 0, photoData: photoData, size: 96) } else { Image(systemName: "person.crop.circle.badge.plus").font(.system(size: 70)) }; Text("Fotoğraf Seç") } }; Spacer() } }
-                Section("Kişi") { TextField("Ad", text: $firstName).textContentType(.givenName); TextField("Soyad", text: $lastName).textContentType(.familyName); TextField("Şirket", text: $company).textContentType(.organizationName); TextField("Görev", text: $jobTitle) }
-                Section("İletişim") { TextField("Cep telefonu", text: $primaryPhone).keyboardType(.phonePad); TextField("Alternatif telefon", text: $secondaryPhone).keyboardType(.phonePad); TextField("E-posta", text: $email).keyboardType(.emailAddress).textInputAutocapitalization(.never); TextField("Konum", text: $location) }
-                Section("Notlar") { TextField("Notlar", text: $notes, axis: .vertical).lineLimit(3...6); Toggle("Favori", isOn: $favorite) }
-                Section("Gruplar") { ForEach(groups) { group in Toggle(group.name, isOn: Binding(get: { selectedGroupIDs.contains(group.id) }, set: { $0 ? selectedGroupIDs.insert(group.id) : selectedGroupIDs.remove(group.id) })) } }
-            }.navigationTitle(contact == nil ? "Yeni Kişi" : "Kişiyi Düzenle").navigationBarTitleDisplayMode(.inline)
-                .toolbar { ToolbarItem(placement: .cancellationAction) { Button("Vazgeç") { dismiss() } }; ToolbarItem(placement: .confirmationAction) { Button("Kaydet", action: save).disabled(!canSave) } }
-                .onChange(of: photoItem) { _, item in Task { photoData = try? await item?.loadTransferable(type: Data.self) } }
+                photoSection
+                identitySection
+                contactSection
+                notesSection
+                groupsSection
+            }
+            .navigationTitle(contact == nil ? "Yeni Kişi" : "Kişiyi Düzenle")
+            .navigationBarTitleDisplayMode(.inline)
+            .toolbar { contactToolbar }
+            .onChange(of: photoItem, loadSelectedPhoto)
         }
     }
+
+    private var photoSection: some View {
+        Section {
+            HStack {
+                Spacer()
+                PhotosPicker(selection: $photoItem, matching: .images) {
+                    VStack {
+                        if let photoData {
+                            AvatarView(initials: "", seed: 0, photoData: photoData, size: 96)
+                        } else {
+                            Image(systemName: "person.crop.circle.badge.plus")
+                                .font(.system(size: 70))
+                        }
+                        Text("Fotoğraf Seç")
+                    }
+                }
+                Spacer()
+            }
+        }
+    }
+
+    private var identitySection: some View {
+        Section("Kişi") {
+            TextField("Ad", text: $firstName).textContentType(.givenName)
+            TextField("Soyad", text: $lastName).textContentType(.familyName)
+            TextField("Şirket", text: $company).textContentType(.organizationName)
+            TextField("Görev", text: $jobTitle)
+        }
+    }
+
+    private var contactSection: some View {
+        Section("İletişim") {
+            TextField("Cep telefonu", text: $primaryPhone).keyboardType(.phonePad)
+            TextField("Alternatif telefon", text: $secondaryPhone).keyboardType(.phonePad)
+            TextField("E-posta", text: $email)
+                .keyboardType(.emailAddress)
+                .textInputAutocapitalization(.never)
+            TextField("Konum", text: $location)
+        }
+    }
+
+    private var notesSection: some View {
+        Section("Notlar") {
+            TextField("Notlar", text: $notes, axis: .vertical).lineLimit(3...6)
+            Toggle("Favori", isOn: $favorite)
+        }
+    }
+
+    private var groupsSection: some View {
+        Section("Gruplar") {
+            ForEach(groups) { group in
+                Toggle(group.name, isOn: groupSelectionBinding(for: group.id))
+            }
+        }
+    }
+
+    @ToolbarContentBuilder
+    private var contactToolbar: some ToolbarContent {
+        ToolbarItem(placement: .cancellationAction) {
+            Button("Vazgeç") { dismiss() }
+        }
+        ToolbarItem(placement: .confirmationAction) {
+            Button("Kaydet", action: save).disabled(!canSave)
+        }
+    }
+
+    private func groupSelectionBinding(for groupID: UUID) -> Binding<Bool> {
+        Binding(
+            get: { selectedGroupIDs.contains(groupID) },
+            set: { isSelected in
+                if isSelected {
+                    selectedGroupIDs.insert(groupID)
+                } else {
+                    selectedGroupIDs.remove(groupID)
+                }
+            }
+        )
+    }
+
+    private func loadSelectedPhoto(_ oldItem: PhotosPickerItem?, _ newItem: PhotosPickerItem?) {
+        Task {
+            photoData = try? await newItem?.loadTransferable(type: Data.self)
+        }
+    }
+
     private func save() {
         guard let normalized = PhoneNumber.normalized(primaryPhone) else { return }
         let model = contact ?? Contact(firstName: firstName, primaryPhone: normalized)
