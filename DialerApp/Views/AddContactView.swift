@@ -53,6 +53,7 @@ struct AddContactView: View {
         }
     }
 
+    @MainActor
     private var photoSection: some View {
         Section {
             HStack {
