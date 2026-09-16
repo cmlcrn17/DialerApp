@@ -12,6 +12,7 @@
     <key>LSRequiresIPhoneOS</key><true/>
     <key>NSMicrophoneUsageDescription</key><string>Kişilerinizde sesle arama yapabilmek için mikrofon kullanılır.</string>
     <key>NSSpeechRecognitionUsageDescription</key><string>Söylediğiniz kişi adını aramak için konuşma tanıma kullanılır.</string>
+    <key>NSPhotoLibraryUsageDescription</key><string>Kişilerinize profil fotoğrafı ekleyebilmeniz için fotoğraf arşivinize erişilir.</string>
     <key>UIApplicationSceneManifest</key><dict><key>UIApplicationSupportsMultipleScenes</key><false/></dict>
     <key>UILaunchScreen</key><dict/>
     <key>UISupportedInterfaceOrientations</key><array><string>UIInterfaceOrientationPortrait</string></array>

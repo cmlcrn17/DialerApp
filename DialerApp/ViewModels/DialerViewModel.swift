@@ -9,7 +9,7 @@ final class DialerViewModel: ObservableObject {
 
     private let callingService: any CallingService
 
-    init(callingService: any CallingService = CellularCallingService()) {
+    init(callingService: any CallingService = DefaultDialerCallingService(fallback: SystemFallbackCallingService())) {
         self.callingService = callingService
     }
 
@@ -25,7 +25,7 @@ final class DialerViewModel: ObservableObject {
         isCalling = true
         defer { isCalling = false }
         do {
-            try await callingService.startCellularCall(to: number)
+            try await callingService.call(phoneNumber: number)
             if let normalized = PhoneNumber.normalized(number) {
                 context.insert(CallRecord(contactName: name ?? normalized, phoneNumber: normalized))
                 try? context.save()

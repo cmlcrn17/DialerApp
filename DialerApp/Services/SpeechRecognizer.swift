@@ -5,6 +5,7 @@ import Speech
 final class SpeechRecognizer: ObservableObject {
     @Published private(set) var isListening = false
     @Published var transcript = ""
+    @Published var errorMessage: String?
 
     private let recognizer = SFSpeechRecognizer(locale: Locale(identifier: "tr-TR"))
     private let audioEngine = AVAudioEngine()
@@ -25,7 +26,14 @@ final class SpeechRecognizer: ObservableObject {
     }
 
     private func start() async {
-        guard await permissionsGranted() else { return }
+        guard await permissionsGranted() else {
+            errorMessage = "Mikrofon veya konuşma tanıma erişimi kapalı."
+            return
+        }
+        guard recognizer?.isAvailable == true else {
+            errorMessage = "Konuşma tanıma şu anda kullanılamıyor."
+            return
+        }
         stop()
 
         let request = SFSpeechAudioBufferRecognitionRequest()
@@ -53,6 +61,7 @@ final class SpeechRecognizer: ObservableObject {
             try audioEngine.start()
             isListening = true
         } catch {
+            errorMessage = "Dinleme başlatılamadı."
             stop()
         }
     }
