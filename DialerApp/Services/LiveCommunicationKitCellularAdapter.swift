@@ -8,14 +8,16 @@ import LiveCommunicationKit
 @available(iOS 26.0, *)
 @MainActor
 struct LiveCommunicationKitCellularAdapter: CallingService {
+    private static let conversationManager = ConversationManager(configuration: .init())
+
     func call(phoneNumber rawNumber: String) async throws {
         guard let number = PhoneNumber.normalized(rawNumber) else {
             throw CallError.invalidNumber
         }
 
         let handle = Handle(type: .phoneNumber, value: number)
-        let action = StartCellularConversationAction(conversationUUID: UUID(), handle: handle)
-        try await TelephonyConversationManager.shared.perform([action])
+        let action = StartConversationAction(conversationUUID: UUID(), handle: handle)
+        try await Self.conversationManager.perform([action])
     }
 }
 #endif
