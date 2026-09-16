@@ -8,15 +8,24 @@ import LiveCommunicationKit
 @available(iOS 26.0, *)
 @MainActor
 struct LiveCommunicationKitCellularAdapter: CallingService {
-    private static let conversationManager = ConversationManager(configuration: .init())
+    private static let conversationManager = ConversationManager(
+        configuration: .init(
+            ringtoneName: nil,
+            iconTemplateImageData: nil,
+            maximumConversationGroups: 1,
+            maximumConversationsPerConversationGroup: 1,
+            includesConversationInRecents: true,
+            supportsVideo: false,
+            supportedHandleTypes: [.phoneNumber]
+        )
+    )
 
     func call(phoneNumber rawNumber: String) async throws {
-        guard let number = PhoneNumber.normalized(rawNumber) else {
+        guard PhoneNumber.normalized(rawNumber) != nil else {
             throw CallError.invalidNumber
         }
 
-        let handle = Handle(type: .phoneNumber, value: number)
-        let action = StartConversationAction(conversationUUID: UUID(), handle: handle)
+        let action = StartConversationAction(conversationUUID: UUID())
         try await Self.conversationManager.perform([action])
     }
 }

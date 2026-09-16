@@ -15,8 +15,9 @@ grep -q 'CODE_SIGN_ENTITLEMENTS = DialerApp/Resources/DialerApp.entitlements' Di
 grep -q 'SWIFT_ACTIVE_COMPILATION_CONDITIONS = "$(inherited) DIALER_ENABLE_LIVE_COMMUNICATION_KIT"' DialerApp.xcodeproj/project.pbxproj
 
 grep -q 'StartConversationAction' DialerApp/Services/LiveCommunicationKitCellularAdapter.swift
-grep -q 'ConversationManager(configuration:' DialerApp/Services/LiveCommunicationKitCellularAdapter.swift
-if grep -Eq 'StartCellularConversationAction|TelephonyConversationManager' DialerApp/Services/LiveCommunicationKitCellularAdapter.swift; then
+grep -q 'configuration: \.init(' DialerApp/Services/LiveCommunicationKitCellularAdapter.swift
+grep -q 'supportedHandleTypes: \[\.phoneNumber\]' DialerApp/Services/LiveCommunicationKitCellularAdapter.swift
+if grep -Eq 'StartCellularConversationAction|TelephonyConversationManager|StartConversationAction\(conversationUUID: UUID\(\), handle:' DialerApp/Services/LiveCommunicationKitCellularAdapter.swift; then
   echo "LiveCommunicationKit adapter contains unavailable API names." >&2
   exit 1
 fi
