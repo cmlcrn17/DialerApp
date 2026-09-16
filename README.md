@@ -70,16 +70,16 @@ Projede iki açıkça ayrılmış yol vardır:
 - `SystemFallbackCallingService`: `tel:` üzerinden normal hücresel çağrı açar ve yönetilen entitlement olmadan çalışır.
 - `DefaultDialerCallingService`: uygun derlemede `LiveCommunicationKitCellularAdapter` kullanır; aksi halde fallback'i çağırır. VoIP'e sessizce geçmez.
 
-`com.apple.developer.dialing-app` **yönetilen bir Apple entitlement'ıdır**. Dosyada örnek olarak bulunması Apple'ın bunu hesabınıza verdiği anlamına gelmez; ücretsiz kişisel takım ya da sıradan provisioning profile ile imzalanamaz. Onayınız yoksa `DialerApp.entitlements` dosyasını target'ın Code Signing Entitlements ayarına bağlamayın.
+`com.apple.developer.dialing-app` **yönetilen bir Apple entitlement'ıdır**. Proje, onaylı Default Dialer derlemelerinde arama tuşuna tek dokunuşla hücresel aramayı başlatmak için entitlement ve `DIALER_ENABLE_LIVE_COMMUNICATION_KIT` koşulu etkin olacak şekilde yapılandırılmıştır. Bununla birlikte entitlement dosyasının projede bulunması Apple'ın bunu hesabınıza verdiği anlamına gelmez; ücretsiz kişisel takım ya da sıradan provisioning profile ile imzalanamaz.
 
 Apple entitlement'ı hesabınıza tanımladıktan sonra:
 
 1. Certificates, Identifiers & Profiles alanında doğru App ID ve provisioning profile'ın entitlement'ı içerdiğini doğrulayın.
-2. Xcode'da **Target → Signing & Capabilities** üzerinden Apple'ın sunduğu ilgili Default Calling/Dialer capability'yi ekleyin. Xcode capability'yi göstermiyorsa elle uydurulmuş bir capability eklemeyin.
-3. Target'ın **Code Signing Entitlements** değerini `DialerApp/Resources/DialerApp.entitlements` yapın.
-4. **Build Settings → Swift Compiler - Custom Flags → Active Compilation Conditions** alanına `DIALER_ENABLE_LIVE_COMMUNICATION_KIT` ekleyin.
-5. Seçtiğiniz güncel Xcode SDK'sındaki LiveCommunicationKit imzalarını doğrulayıp fiziksel cihazda test edin.
-6. iPhone Ayarları'nda uygulamayı varsayılan arama uygulaması seçin.
+2. Xcode'da **Target → Signing & Capabilities** üzerinden Apple'ın sunduğu ilgili Default Calling/Dialer capability'nin tanındığını doğrulayın. Xcode capability'yi göstermiyorsa elle uydurulmuş bir capability eklemeyin.
+3. Seçtiğiniz güncel Xcode SDK'sındaki LiveCommunicationKit imzalarını doğrulayıp fiziksel cihazda test edin.
+4. iPhone Ayarları'nda uygulamayı varsayılan arama uygulaması seçin.
+
+Apple onaylı entitlement/provisioning profile kullanılmıyorsa target'taki **Code Signing Entitlements** ve `DIALER_ENABLE_LIVE_COMMUNICATION_KIT` ayarlarını kaldırın. Bu durumda uygulama yeniden `tel:` fallback yolunu kullanır ve iOS'un ikinci onay adımı uygulama tarafından atlanamaz.
 
 Bu adımlar yalnızca Default Dialer / LiveCommunicationKit yolunu açar. Rehber, gruplar, SwiftData, sesli arama, özel geçiş ekranı, uygulama içi geçmiş ve `tel:` fallback bunlar olmadan çalışır.
 
