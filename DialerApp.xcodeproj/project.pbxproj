@@ -19,6 +19,13 @@
 		B0000000000000000000C /* KeypadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000C /* KeypadView.swift */; };
 		B0000000000000000000D /* RecentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000D /* RecentsView.swift */; };
 		B0000000000000000000E /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000E /* RootView.swift */; };
+		B10000000000000000000001 /* ContactGroup.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000001 /* ContactGroup.swift */; };
+		B10000000000000000000002 /* SystemFallbackCallingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000002 /* SystemFallbackCallingService.swift */; };
+		B10000000000000000000003 /* DefaultDialerCallingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000003 /* DefaultDialerCallingService.swift */; };
+		B10000000000000000000004 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000004 /* HomeView.swift */; };
+		B10000000000000000000005 /* ContactDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000005 /* ContactDetailView.swift */; };
+		B10000000000000000000006 /* GroupsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000006 /* GroupsView.swift */; };
+		B10000000000000000000007 /* SettingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A10000000000000000000007 /* SettingsView.swift */; };
 /* End PBXBuildFile section */
 /* Begin PBXFileReference section */
 		A00000000000000000001 /* DialerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialerApp.swift; sourceTree = "<group>"; };
@@ -36,6 +43,13 @@
 		A0000000000000000000D /* RecentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsView.swift; sourceTree = "<group>"; };
 		A0000000000000000000E /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
 		D00000000000000000000001 /* DialerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = DialerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		A10000000000000000000001 /* ContactGroup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactGroup.swift; sourceTree = "<group>"; };
+		A10000000000000000000002 /* SystemFallbackCallingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SystemFallbackCallingService.swift; sourceTree = "<group>"; };
+		A10000000000000000000003 /* DefaultDialerCallingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultDialerCallingService.swift; sourceTree = "<group>"; };
+		A10000000000000000000004 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; sourceTree = "<group>"; };
+		A10000000000000000000005 /* ContactDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactDetailView.swift; sourceTree = "<group>"; };
+		A10000000000000000000006 /* GroupsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GroupsView.swift; sourceTree = "<group>"; };
+		A10000000000000000000007 /* SettingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 /* Begin PBXFrameworksBuildPhase section */
 		D00000000000000000000002 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
@@ -55,6 +69,7 @@
 		C00000000000000000002 /* Models */ = {
 			isa = PBXGroup;
 			children = (
+				A10000000000000000000001 /* ContactGroup.swift */,
 				A00000000000000000002 /* CallRecord.swift */,
 				A00000000000000000003 /* Contact.swift */,
 			);
@@ -64,6 +79,8 @@
 		C00000000000000000003 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				A10000000000000000000002 /* SystemFallbackCallingService.swift */,
+				A10000000000000000000003 /* DefaultDialerCallingService.swift */,
 				A00000000000000000004 /* CallingService.swift */,
 				A00000000000000000005 /* LiveCommunicationKitCellularAdapter.swift */,
 				A00000000000000000006 /* PhoneNumber.swift */,
@@ -83,6 +100,10 @@
 		C00000000000000000005 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				A10000000000000000000004 /* HomeView.swift */,
+				A10000000000000000000005 /* ContactDetailView.swift */,
+				A10000000000000000000006 /* GroupsView.swift */,
+				A10000000000000000000007 /* SettingsView.swift */,
 				A00000000000000000009 /* AddContactView.swift */,
 				A0000000000000000000A /* AvatarView.swift */,
 				A0000000000000000000B /* ContactsView.swift */,
@@ -105,6 +126,13 @@
 /* End PBXResourcesBuildPhase section */
 /* Begin PBXSourcesBuildPhase section */
 		D00000000000000000000008 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (
+				B10000000000000000000001 /* ContactGroup.swift in Sources */,
+				B10000000000000000000002 /* SystemFallbackCallingService.swift in Sources */,
+				B10000000000000000000003 /* DefaultDialerCallingService.swift in Sources */,
+				B10000000000000000000004 /* HomeView.swift in Sources */,
+				B10000000000000000000005 /* ContactDetailView.swift in Sources */,
+				B10000000000000000000006 /* GroupsView.swift in Sources */,
+				B10000000000000000000007 /* SettingsView.swift in Sources */,
 				B00000000000000000001 /* DialerApp.swift in Sources */,
 				B00000000000000000002 /* CallRecord.swift in Sources */,
 				B00000000000000000003 /* Contact.swift in Sources */,

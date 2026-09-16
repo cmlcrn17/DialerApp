@@ -1,33 +1,98 @@
 # Sade Telefon
 
-Sade Telefon, SwiftUI ile yazılmış yerel bir iPhone arama uygulamasıdır. Kişileri SwiftData ile yalnızca uygulama içinde saklar; Speech framework ile kişi arar ve standart `tel:` sistemiyle normal SIM/hücresel arama başlatır. Mimari MVVM'dir ve arama altyapısı bir servis protokolünün arkasında tutulur.
+Sade Telefon; Apple Contacts ve Phone sadeliğini modern bir şirket rehberiyle birleştiren, SwiftUI ve SwiftData tabanlı, tamamen yerel bir iPhone uygulamasıdır. Giriş, sunucu veya hesap gerekmez. İlk açılışta 12 Türkçe demo kişi ve yedi grup hazırlanır. Arama geçmişi yalnızca **bu uygulamanın başlattığı** çağrıları içerir; uygulama Phone.app geçmişine eriştiğini iddia etmez.
 
-## Gereksinimler
+## Neler hemen çalışır?
 
-- macOS ve iOS 26 SDK içeren güncel Xcode
-- iOS 17 veya daha yeni bir iPhone
-- Fiziksel aygıta yüklemek için bir Apple geliştirici hesabı ve kişisel Development Team
+- Ana Sayfa, Gruplar, Kişiler ve Son Aramalar sekmeleri
+- Ad, soyad, tam ad, şirket, görev, telefon, konum ve grup üzerinde yerel arama
+- Türkçe sesli arama, favoriler, kişi detayları ve fotoğraf seçme
+- SwiftData ile aygıt üzerinde kayıt, grup üyeliği ve uygulama içi arama geçmişi
+- Fiziksel iPhone'da belgelenmiş `tel:` URL'si ile normal SIM/eSIM çağrısı
+- Karanlık mod, Dynamic Type, VoiceOver etiketleri ve en az 44 punto çağrı hedefleri
 
-## Aygıtta çalıştırma
+## Proje ağacı
 
-1. `DialerApp.xcodeproj` dosyasını Xcode'da açın.
-2. **DialerApp** target'ında **Signing & Capabilities** bölümünden kendi Team'inizi seçin.
-3. Bundle Identifier'ı hesabınıza özgü bir değerle değiştirin.
-4. iPhone'u USB ile bağlayın, hedef olarak aygıtı seçin ve **Run** düğmesine basın.
-5. Sesli aramayı ilk kullandığınızda mikrofon ve konuşma tanıma izinlerini onaylayın.
+```text
+DialerApp/
+├── App/DialerApp.swift
+├── Models/
+│   ├── Contact.swift
+│   ├── ContactGroup.swift
+│   └── CallRecord.swift
+├── Services/
+│   ├── CallingService.swift
+│   ├── DefaultDialerCallingService.swift
+│   ├── SystemFallbackCallingService.swift
+│   ├── LiveCommunicationKitCellularAdapter.swift
+│   ├── PhoneNumber.swift
+│   └── SpeechRecognizer.swift
+├── ViewModels/DialerViewModel.swift
+├── Views/
+│   ├── RootView.swift
+│   ├── HomeView.swift
+│   ├── ContactsView.swift
+│   ├── GroupsView.swift
+│   ├── ContactDetailView.swift
+│   ├── AddContactView.swift
+│   ├── RecentsView.swift
+│   ├── SettingsView.swift
+│   ├── AvatarView.swift
+│   └── KeypadView.swift
+└── Resources/
+    ├── Info.plist
+    └── DialerApp.entitlements
+```
 
-Simulator normal hücresel arama yapamaz; çağrı akışını fiziksel, SIM/eSIM etkin bir iPhone'da deneyin.
+## Fiziksel iPhone'a kurulum
 
-## Default Dialer / LiveCommunicationKit
+1. Güncel Xcode'u açın ve `DialerApp.xcodeproj` dosyasını seçin.
+2. Project Navigator'da projeyi, ardından **DialerApp** target'ını seçin.
+3. **Signing & Capabilities** sekmesini açın.
+4. **Team** alanında Apple Developer takımınızı seçin.
+5. `com.example.SadeTelefon` Bundle Identifier'ını hesabınıza özgü bir değerle değiştirin.
+6. **Automatically manage signing** seçeneğini etkinleştirin.
+7. iPhone'u USB kablosuyla Mac'e bağlayın (daha sonra kablosuz geliştirme de seçilebilir).
+8. Sorulursa iPhone'da bilgisayara güvenin ve Mac'te aygıt eşleştirmesini onaylayın.
+9. Gerekirse iPhone'da **Ayarlar → Gizlilik ve Güvenlik → Geliştirici Modu**nu açıp aygıtı yeniden başlatın.
+10. Xcode hedef menüsünden fiziksel iPhone'u seçin.
+11. **Product → Run** (`⌘R`) ile derleyip yükleyin.
+12. Sesli arama ve fotoğraf seçimini ilk kullanışınızda mikrofon, konuşma tanıma ve fotoğraf izinlerini verin.
+13. Apple hesabınız ve bölgeniz destekliyorsa aşağıdaki Default Dialer adımlarını tamamlayın; desteklemiyorsa hiçbir şey eklemeyin, fallback hazırdır.
+14. Desteklenen iOS sürümünde **Ayarlar → Uygulamalar → Varsayılan Uygulamalar → Arama** yolundan Sade Telefon'u seçin. Menü görünmüyorsa aygıt/sürüm/bölge veya entitlement uygun değildir.
 
-Default Dialer yetkisi Apple onayı ve bu yetkiyi içeren provisioning profile gerektirir. Bu nedenle indirildiği haliyle proje kişisel imzalamada çalışan `tel:` hücresel fallback'ini kullanır. Apple hesabınız için yetki verildikten sonra:
+Simulator normal hücresel çağrı yapamaz. Çağrıyı SIM/eSIM etkin fiziksel iPhone'da sınayın.
 
-1. Target'ın **Code Signing Entitlements** ayarını `DialerApp/Resources/DialerApp.entitlements` yapın.
-2. **Swift Compiler - Custom Flags** altında `DIALER_ENABLE_LIVE_COMMUNICATION_KIT` koşulunu tanımlayın (`SWIFT_ACTIVE_COMPILATION_CONDITIONS`).
-3. `LiveCommunicationKitCellularAdapter.swift` içindeki iOS 26 SDK çağrısını, kullandığınız Xcode beta/GM imzasıyla doğrulayın.
+## Default Dialer ve LiveCommunicationKit
 
-Adaptör `TelephonyConversationManager` ve `StartCellularConversationAction` kullanımını ana uygulamadan izole eder. Yetki/koşul olmadan derlemeye dahil edilmez ve `CellularCallingService` otomatik olarak `SystemURLCallingService` yoluna gider.
+Projede iki açıkça ayrılmış yol vardır:
 
-## Gizlilik
+- `SystemFallbackCallingService`: `tel:` üzerinden normal hücresel çağrı açar ve yönetilen entitlement olmadan çalışır.
+- `DefaultDialerCallingService`: uygun derlemede `LiveCommunicationKitCellularAdapter` kullanır; aksi halde fallback'i çağırır. VoIP'e sessizce geçmez.
 
-Uygulama sistem rehberini okumaz. Oluşturulan kişiler ve uygulama içinden başlatılan arama geçmişi SwiftData mağazasında yerel olarak saklanır. Tarihler `Date` olarak mutlak zaman değeridir (UTC temelli).
+`com.apple.developer.dialing-app` **yönetilen bir Apple entitlement'ıdır**. Dosyada örnek olarak bulunması Apple'ın bunu hesabınıza verdiği anlamına gelmez; ücretsiz kişisel takım ya da sıradan provisioning profile ile imzalanamaz. Onayınız yoksa `DialerApp.entitlements` dosyasını target'ın Code Signing Entitlements ayarına bağlamayın.
+
+Apple entitlement'ı hesabınıza tanımladıktan sonra:
+
+1. Certificates, Identifiers & Profiles alanında doğru App ID ve provisioning profile'ın entitlement'ı içerdiğini doğrulayın.
+2. Xcode'da **Target → Signing & Capabilities** üzerinden Apple'ın sunduğu ilgili Default Calling/Dialer capability'yi ekleyin. Xcode capability'yi göstermiyorsa elle uydurulmuş bir capability eklemeyin.
+3. Target'ın **Code Signing Entitlements** değerini `DialerApp/Resources/DialerApp.entitlements` yapın.
+4. **Build Settings → Swift Compiler - Custom Flags → Active Compilation Conditions** alanına `DIALER_ENABLE_LIVE_COMMUNICATION_KIT` ekleyin.
+5. Seçtiğiniz güncel Xcode SDK'sındaki LiveCommunicationKit imzalarını doğrulayıp fiziksel cihazda test edin.
+6. iPhone Ayarları'nda uygulamayı varsayılan arama uygulaması seçin.
+
+Bu adımlar yalnızca Default Dialer / LiveCommunicationKit yolunu açar. Rehber, gruplar, SwiftData, sesli arama, özel geçiş ekranı, uygulama içi geçmiş ve `tel:` fallback bunlar olmadan çalışır.
+
+## Bilinen sınırlamalar
+
+- Default Dialer kullanılabilirliği Apple Developer hesabına, yönetilen entitlement onayına, provisioning profile'a, iOS sürümüne, donanıma ve bölgeye bağlıdır.
+- Uygulama ayarlardaki default-dialer seçimini doğrulayan herkese açık bir API yoksa durum tahmin edilmez; Ayarlar ekranı yalnızca belgelenmiş uygulama ayarları URL'sini açar.
+- Özel “Aranıyor” ekranı yalnızca uygulamanın kontrolündeki geçiştir. Korunan sistem hücresel görüşme ekranını değiştirmez.
+- `tel:` fallback Simulator'da çalışmaz ve iOS çağrı onayı/sistem arayüzünü yönetir.
+- Speech tanımanın kullanılabilirliği aygıta, dile ve Apple servis durumuna bağlı olabilir.
+- Kayıt zamanları `Date` ile mutlak zaman (UTC/0) olarak saklanır; UI aygıtın yerel saat diliminde gösterir.
+- Tüm SwiftData sorguları sabit `projectID`, aktif kayıt ve silinmemiş (`deletedAt == nil`) kapsamını uygular.
+
+## Doğrulama
+
+Linux ortamında SwiftUI/iOS SDK bulunmadığı için gerçek iOS derlemesi yapılamaz. `scripts/validate_project.sh`, tüm Swift dosyalarının target'a eklendiğini ve property list dosyalarının okunabildiğini doğrular. Son derleme ve imzalama güncel Xcode'da yapılmalıdır.

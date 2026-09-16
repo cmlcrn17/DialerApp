@@ -4,7 +4,7 @@ import SwiftUI
 @main
 struct DialerApp: App {
     private let container: ModelContainer = {
-        let schema = Schema([Contact.self, CallRecord.self])
+        let schema = Schema([Contact.self, ContactGroup.self, CallRecord.self])
         let configuration = ModelConfiguration(schema: schema)
         do {
             return try ModelContainer(for: schema, configurations: [configuration])
@@ -15,7 +15,9 @@ struct DialerApp: App {
 
     var body: some Scene {
         WindowGroup {
-            RootView()
+            RootView(callingService: DefaultDialerCallingService(
+                fallback: SystemFallbackCallingService()
+            ))
         }
         .modelContainer(container)
     }
