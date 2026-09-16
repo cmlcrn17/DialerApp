@@ -55,19 +55,21 @@ struct AddContactView: View {
 
     @MainActor
     private var photoSection: some View {
-        Section {
+        let pickerLabel = VStack {
+            if let photoData {
+                AvatarView(initials: "", seed: 0, photoData: photoData, size: 96)
+            } else {
+                Image(systemName: "person.crop.circle.badge.plus")
+                    .font(.system(size: 70))
+            }
+            Text("Fotoğraf Seç")
+        }
+
+        return Section {
             HStack {
                 Spacer()
                 PhotosPicker(selection: $photoItem, matching: .images) {
-                    VStack {
-                        if let photoData {
-                            AvatarView(initials: "", seed: 0, photoData: photoData, size: 96)
-                        } else {
-                            Image(systemName: "person.crop.circle.badge.plus")
-                                .font(.system(size: 70))
-                        }
-                        Text("Fotoğraf Seç")
-                    }
+                    pickerLabel
                 }
                 Spacer()
             }
