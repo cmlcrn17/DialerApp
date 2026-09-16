@@ -1,0 +1,136 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {};
+	objectVersion = 60;
+	objects = {
+/* Begin PBXBuildFile section */
+		B00000000000000000001 /* DialerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000001 /* DialerApp.swift */; };
+		B00000000000000000002 /* CallRecord.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000002 /* CallRecord.swift */; };
+		B00000000000000000003 /* Contact.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000003 /* Contact.swift */; };
+		B00000000000000000004 /* CallingService.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000004 /* CallingService.swift */; };
+		B00000000000000000005 /* LiveCommunicationKitCellularAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000005 /* LiveCommunicationKitCellularAdapter.swift */; };
+		B00000000000000000006 /* PhoneNumber.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000006 /* PhoneNumber.swift */; };
+		B00000000000000000007 /* SpeechRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000007 /* SpeechRecognizer.swift */; };
+		B00000000000000000008 /* DialerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000008 /* DialerViewModel.swift */; };
+		B00000000000000000009 /* AddContactView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A00000000000000000009 /* AddContactView.swift */; };
+		B0000000000000000000A /* AvatarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000A /* AvatarView.swift */; };
+		B0000000000000000000B /* ContactsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000B /* ContactsView.swift */; };
+		B0000000000000000000C /* KeypadView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000C /* KeypadView.swift */; };
+		B0000000000000000000D /* RecentsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000D /* RecentsView.swift */; };
+		B0000000000000000000E /* RootView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A0000000000000000000E /* RootView.swift */; };
+/* End PBXBuildFile section */
+/* Begin PBXFileReference section */
+		A00000000000000000001 /* DialerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialerApp.swift; sourceTree = "<group>"; };
+		A00000000000000000002 /* CallRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallRecord.swift; sourceTree = "<group>"; };
+		A00000000000000000003 /* Contact.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Contact.swift; sourceTree = "<group>"; };
+		A00000000000000000004 /* CallingService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallingService.swift; sourceTree = "<group>"; };
+		A00000000000000000005 /* LiveCommunicationKitCellularAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveCommunicationKitCellularAdapter.swift; sourceTree = "<group>"; };
+		A00000000000000000006 /* PhoneNumber.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhoneNumber.swift; sourceTree = "<group>"; };
+		A00000000000000000007 /* SpeechRecognizer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpeechRecognizer.swift; sourceTree = "<group>"; };
+		A00000000000000000008 /* DialerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialerViewModel.swift; sourceTree = "<group>"; };
+		A00000000000000000009 /* AddContactView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddContactView.swift; sourceTree = "<group>"; };
+		A0000000000000000000A /* AvatarView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AvatarView.swift; sourceTree = "<group>"; };
+		A0000000000000000000B /* ContactsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContactsView.swift; sourceTree = "<group>"; };
+		A0000000000000000000C /* KeypadView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeypadView.swift; sourceTree = "<group>"; };
+		A0000000000000000000D /* RecentsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecentsView.swift; sourceTree = "<group>"; };
+		A0000000000000000000E /* RootView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RootView.swift; sourceTree = "<group>"; };
+		D00000000000000000000001 /* DialerApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; path = DialerApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+/* Begin PBXFrameworksBuildPhase section */
+		D00000000000000000000002 = {isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXFrameworksBuildPhase section */
+/* Begin PBXGroup section */
+		D00000000000000000000003 = {isa = PBXGroup; children = (D00000000000000000000004 /* DialerApp */, D00000000000000000000005 /* Products */); sourceTree = "<group>"; };
+		D00000000000000000000004 /* DialerApp */ = {isa = PBXGroup; children = (C00000000000000000001 /* App */, C00000000000000000002 /* Models */, C00000000000000000003 /* Services */, C00000000000000000004 /* ViewModels */, C00000000000000000005 /* Views */); path = DialerApp; sourceTree = "<group>"; };
+		D00000000000000000000005 /* Products */ = {isa = PBXGroup; children = (D00000000000000000000001 /* DialerApp.app */); name = Products; sourceTree = "<group>"; };
+		C00000000000000000001 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				A00000000000000000001 /* DialerApp.swift */,
+			);
+			path = App;
+			sourceTree = "<group>";
+		};
+		C00000000000000000002 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				A00000000000000000002 /* CallRecord.swift */,
+				A00000000000000000003 /* Contact.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		C00000000000000000003 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				A00000000000000000004 /* CallingService.swift */,
+				A00000000000000000005 /* LiveCommunicationKitCellularAdapter.swift */,
+				A00000000000000000006 /* PhoneNumber.swift */,
+				A00000000000000000007 /* SpeechRecognizer.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
+		C00000000000000000004 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				A00000000000000000008 /* DialerViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		C00000000000000000005 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A00000000000000000009 /* AddContactView.swift */,
+				A0000000000000000000A /* AvatarView.swift */,
+				A0000000000000000000B /* ContactsView.swift */,
+				A0000000000000000000C /* KeypadView.swift */,
+				A0000000000000000000D /* RecentsView.swift */,
+				A0000000000000000000E /* RootView.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+/* Begin PBXNativeTarget section */
+		D00000000000000000000006 /* DialerApp */ = {isa = PBXNativeTarget; buildConfigurationList = D00000000000000000000007; buildPhases = (D00000000000000000000008, D00000000000000000000002, D00000000000000000000009); buildRules = (); dependencies = (); name = DialerApp; productName = DialerApp; productReference = D00000000000000000000001; productType = "com.apple.product-type.application"; };
+/* End PBXNativeTarget section */
+/* Begin PBXProject section */
+		D0000000000000000000000A /* Project object */ = {isa = PBXProject; attributes = {BuildIndependentTargetsInParallel = 1; LastSwiftUpdateCheck = 2600; LastUpgradeCheck = 2600; TargetAttributes = {D00000000000000000000006 = {CreatedOnToolsVersion = 26.0; SystemCapabilities = {com.apple.DefaultDialer = {enabled = 0; }; }; }; }; }; buildConfigurationList = D0000000000000000000000B; compatibilityVersion = "Xcode 15.0"; developmentRegion = tr; hasScannedForEncodings = 0; knownRegions = (tr, Base); mainGroup = D00000000000000000000003; productRefGroup = D00000000000000000000005; projectDirPath = ""; projectRoot = ""; targets = (D00000000000000000000006); };
+/* End PBXProject section */
+/* Begin PBXResourcesBuildPhase section */
+		D00000000000000000000009 = {isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXResourcesBuildPhase section */
+/* Begin PBXSourcesBuildPhase section */
+		D00000000000000000000008 = {isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (
+				B00000000000000000001 /* DialerApp.swift in Sources */,
+				B00000000000000000002 /* CallRecord.swift in Sources */,
+				B00000000000000000003 /* Contact.swift in Sources */,
+				B00000000000000000004 /* CallingService.swift in Sources */,
+				B00000000000000000005 /* LiveCommunicationKitCellularAdapter.swift in Sources */,
+				B00000000000000000006 /* PhoneNumber.swift in Sources */,
+				B00000000000000000007 /* SpeechRecognizer.swift in Sources */,
+				B00000000000000000008 /* DialerViewModel.swift in Sources */,
+				B00000000000000000009 /* AddContactView.swift in Sources */,
+				B0000000000000000000A /* AvatarView.swift in Sources */,
+				B0000000000000000000B /* ContactsView.swift in Sources */,
+				B0000000000000000000C /* KeypadView.swift in Sources */,
+				B0000000000000000000D /* RecentsView.swift in Sources */,
+				B0000000000000000000E /* RootView.swift in Sources */,
+			); runOnlyForDeploymentPostprocessing = 0; };
+/* End PBXSourcesBuildPhase section */
+/* Begin XCBuildConfiguration section */
+		D0000000000000000000000C = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; COPY_PHASE_STRIP = NO; DEBUG_INFORMATION_FORMAT = dwarf; ENABLE_TESTABILITY = YES; GCC_C_LANGUAGE_STANDARD = gnu17; GCC_OPTIMIZATION_LEVEL = 0; IPHONEOS_DEPLOYMENT_TARGET = 17.0; ONLY_ACTIVE_ARCH = YES; SDKROOT = iphoneos; SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)"; SWIFT_OPTIMIZATION_LEVEL = "-Onone"; }; name = Debug; };
+		D0000000000000000000000D = {isa = XCBuildConfiguration; buildSettings = {ALWAYS_SEARCH_USER_PATHS = NO; CLANG_ENABLE_MODULES = YES; CLANG_ENABLE_OBJC_ARC = YES; COPY_PHASE_STRIP = YES; DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym"; GCC_C_LANGUAGE_STANDARD = gnu17; IPHONEOS_DEPLOYMENT_TARGET = 17.0; SDKROOT = iphoneos; SWIFT_COMPILATION_MODE = wholemodule; SWIFT_OPTIMIZATION_LEVEL = "-O"; VALIDATE_PRODUCT = YES; }; name = Release; };
+		D0000000000000000000000E = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; DEVELOPMENT_TEAM = ""; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = DialerApp/Resources/Info.plist; IPHONEOS_DEPLOYMENT_TARGET = 17.0; MARKETING_VERSION = 1.0; PRODUCT_BUNDLE_IDENTIFIER = com.example.SadeTelefon; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SUPPORTS_MACCATALYST = NO; SWIFT_EMIT_LOC_STRINGS = YES; SWIFT_VERSION = 6.0; TARGETED_DEVICE_FAMILY = 1; }; name = Debug; };
+		D0000000000000000000000F = {isa = XCBuildConfiguration; buildSettings = {ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES; CODE_SIGN_STYLE = Automatic; CURRENT_PROJECT_VERSION = 1; DEVELOPMENT_TEAM = ""; GENERATE_INFOPLIST_FILE = NO; INFOPLIST_FILE = DialerApp/Resources/Info.plist; IPHONEOS_DEPLOYMENT_TARGET = 17.0; MARKETING_VERSION = 1.0; PRODUCT_BUNDLE_IDENTIFIER = com.example.SadeTelefon; PRODUCT_NAME = "$(TARGET_NAME)"; SUPPORTED_PLATFORMS = "iphoneos iphonesimulator"; SUPPORTS_MACCATALYST = NO; SWIFT_EMIT_LOC_STRINGS = YES; SWIFT_VERSION = 6.0; TARGETED_DEVICE_FAMILY = 1; }; name = Release; };
+/* End XCBuildConfiguration section */
+/* Begin XCConfigurationList section */
+		D00000000000000000000007 = {isa = XCConfigurationList; buildConfigurations = (D0000000000000000000000E, D0000000000000000000000F); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+		D0000000000000000000000B = {isa = XCConfigurationList; buildConfigurations = (D0000000000000000000000C, D0000000000000000000000D); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+/* End XCConfigurationList section */
+	};
+	rootObject = D0000000000000000000000A /* Project object */;
+}
