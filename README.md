@@ -81,13 +81,13 @@ Apple entitlement'ı hesabınıza tanımladıktan sonra:
 
 Apple onaylı entitlement/provisioning profile kullanılmıyorsa target'taki **Code Signing Entitlements** ve `DIALER_ENABLE_LIVE_COMMUNICATION_KIT` ayarlarını kaldırın. Bu durumda uygulama `tel:` fallback yolunu kullanır ve iOS'un ikinci onay adımı uygulama tarafından atlanamaz.
 
-Bu adımlar yalnızca Default Dialer / LiveCommunicationKit yolunu açar. Rehber, gruplar, SwiftData, sesli arama, özel geçiş ekranı, uygulama içi geçmiş ve `tel:` fallback bunlar olmadan çalışır.
+Bu adımlar yalnızca Default Dialer / LiveCommunicationKit yolunu açar. Rehber, gruplar, SwiftData, sesli arama, uygulama içi geçmiş ve `tel:` fallback bunlar olmadan çalışır. Ara düğmeleri yapay bir bekleme veya uygulama içi geçiş ekranı göstermeden seçilen arama yolunu hemen başlatır.
 
 ## Bilinen sınırlamalar
 
 - Default Dialer kullanılabilirliği Apple Developer hesabına, yönetilen entitlement onayına, provisioning profile'a, iOS sürümüne, donanıma ve bölgeye bağlıdır.
 - Uygulama ayarlardaki default-dialer seçimini doğrulayan herkese açık bir API yoksa durum tahmin edilmez; Ayarlar ekranı yalnızca belgelenmiş uygulama ayarları URL'sini açar.
-- Özel “Aranıyor” ekranı yalnızca uygulamanın kontrolündeki geçiştir. Korunan sistem hücresel görüşme ekranını değiştirmez.
+- Korunan sistem hücresel görüşme ekranı uygulama tarafından değiştirilemez.
 - `tel:` fallback Simulator'da çalışmaz ve iOS çağrı onayı/sistem arayüzünü yönetir.
 - Speech tanımanın kullanılabilirliği aygıta, dile ve Apple servis durumuna bağlı olabilir.
 - Kayıt zamanları `Date` ile mutlak zaman (UTC/0) olarak saklanır; UI aygıtın yerel saat diliminde gösterir.
