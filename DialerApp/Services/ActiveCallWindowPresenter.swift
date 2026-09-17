@@ -55,9 +55,10 @@ final class ActiveCallWindowPresenter: NSObject {
         if activeCall == nil {
             windows.values.forEach { window in
                 window.isHidden = true
-                window.windowScene?.windows
-                    .first { $0 !== window && $0.windowLevel == .normal }
-                    ?.makeKey()
+                let fallbackWindow = window.windowScene?.windows.first {
+                    $0 !== window && $0.windowLevel == .normal
+                }
+                fallbackWindow?.makeKey()
             }
         }
     }
