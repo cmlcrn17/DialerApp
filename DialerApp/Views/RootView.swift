@@ -32,7 +32,6 @@ final class CallCoordinator: ObservableObject {
 struct RootView: View {
     @Environment(\.modelContext) private var context
     @StateObject private var calls: CallCoordinator
-    @StateObject private var activeCallCenter = ActiveCallCenter.shared
     @AppStorage("didSeedDemoDirectory") private var didSeed = false
 
     init(callingService: any CallingService) {
@@ -51,9 +50,6 @@ struct RootView: View {
         .alert("Arama başlatılamadı", isPresented: Binding(
             get: { calls.errorMessage != nil }, set: { if !$0 { calls.errorMessage = nil } }
         )) { Button("Tamam", role: .cancel) {} } message: { Text(calls.errorMessage ?? "") }
-        .fullScreenCover(item: $activeCallCenter.current) { model in
-            ActiveCallView(model: model)
-        }
         .task { seedIfNeeded() }
     }
 

@@ -14,6 +14,7 @@ struct DialerApp: App {
     }()
 
     init() {
+        _ = ActiveCallWindowPresenter.shared
         #if DIALER_ENABLE_LIVE_COMMUNICATION_KIT && canImport(LiveCommunicationKit)
         if #available(iOS 26.0, *) {
             _ = LiveCommunicationKitCellularAdapter.shared

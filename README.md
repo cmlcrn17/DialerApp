@@ -10,6 +10,7 @@ Sade Telefon; Apple Contacts ve Phone sadeliğini modern bir şirket rehberiyle 
 - SwiftData ile aygıt üzerinde kayıt, grup üyeliği ve uygulama içi arama geçmişi
 - Fiziksel iPhone'da belgelenmiş `tel:` URL'si ile normal SIM/eSIM çağrısı
 - Karanlık mod, Dynamic Type, VoiceOver etiketleri ve en az 44 punto çağrı hedefleri
+- Uygulama görünürken diğer uygulama pencerelerinin üzerinde kalan ve uygulamaya dönüldüğünde yeniden öne getirilen özel görüşme ekranı
 
 ## Proje ağacı
 
@@ -88,6 +89,7 @@ Bu adımlar yalnızca Default Dialer / LiveCommunicationKit yolunu açar. Rehber
 - Default Dialer kullanılabilirliği Apple Developer hesabına, yönetilen entitlement onayına, provisioning profile'a, iOS sürümüne, donanıma ve bölgeye bağlıdır.
 - Uygulama ayarlardaki default-dialer seçimini doğrulayan herkese açık bir API yoksa durum tahmin edilmez; Ayarlar ekranı yalnızca belgelenmiş uygulama ayarları URL'sini açar.
 - Korunan sistem hücresel görüşme ekranı uygulama tarafından değiştirilemez.
+- iOS güvenlik modeli bir uygulamanın başka uygulamaların veya korunan sistem ekranlarının üzerinde pencere göstermesine izin vermez; özel görüşme ekranı uygulamanın kendi sahnelerinde en üstte tutulur ve uygulama yeniden etkin olduğunda geri yüklenir.
 - `tel:` fallback Simulator'da çalışmaz ve iOS çağrı onayı/sistem arayüzünü yönetir.
 - Speech tanımanın kullanılabilirliği aygıta, dile ve Apple servis durumuna bağlı olabilir.
 - Kayıt zamanları `Date` ile mutlak zaman (UTC/0) olarak saklanır; UI aygıtın yerel saat diliminde gösterir.
