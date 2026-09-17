@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E10000000000000000000001 /* ActiveCallWindowPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = E20000000000000000000001 /* ActiveCallWindowPresenter.swift */; };
 		29D538D9DED16963A91703F5 /* Resources/Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = C95E3D2776969BA64BF9AC5C /* Resources/Assets.xcassets */; };
 		A382C98823FA7228BFEE15CB /* ActiveCallView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BA35147A71C277A14FF8A7D /* ActiveCallView.swift */; };
 		AFADED3C1F4FA4DF3D7965C6 /* ActiveCallCenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = D0B4F4F23881C1FD6DA0417B /* ActiveCallCenter.swift */; };
@@ -35,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E20000000000000000000001 /* ActiveCallWindowPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActiveCallWindowPresenter.swift; sourceTree = "<group>"; };
 		7BA35147A71C277A14FF8A7D /* ActiveCallView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = ActiveCallView.swift; sourceTree = "<group>"; };
 		A00000000000000000001 /* DialerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DialerApp.swift; sourceTree = "<group>"; };
 		A00000000000000000002 /* CallRecord.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CallRecord.swift; sourceTree = "<group>"; };
@@ -110,6 +112,7 @@
 				A00000000000000000006 /* PhoneNumber.swift */,
 				A00000000000000000007 /* SpeechRecognizer.swift */,
 				D0B4F4F23881C1FD6DA0417B /* ActiveCallCenter.swift */,
+				E20000000000000000000001 /* ActiveCallWindowPresenter.swift */,
 			);
 			path = Services;
 			sourceTree = "<group>";
@@ -266,6 +269,7 @@
 				B0000000000000000000D /* RecentsView.swift in Sources */,
 				B0000000000000000000E /* RootView.swift in Sources */,
 				AFADED3C1F4FA4DF3D7965C6 /* ActiveCallCenter.swift in Sources */,
+				E10000000000000000000001 /* ActiveCallWindowPresenter.swift in Sources */,
 				FDF38E7A3503994C6D9C0B04 /* ActiveCallViewModel.swift in Sources */,
 				A382C98823FA7228BFEE15CB /* ActiveCallView.swift in Sources */,
 			);

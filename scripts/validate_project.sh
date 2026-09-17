@@ -30,7 +30,8 @@ fi
 
 grep -q 'ActiveCallCenter.shared.present' DialerApp/Views/RootView.swift
 grep -q 'ActiveCallCenter.shared.present' DialerApp/ViewModels/DialerViewModel.swift
-grep -q 'fullScreenCover(item: \$activeCallCenter.current)' DialerApp/Views/RootView.swift
+grep -q 'ActiveCallWindowPresenter.shared' DialerApp/App/DialerApp.swift
+grep -q 'UIWindow.Level.alert.rawValue + 1' DialerApp/Services/ActiveCallWindowPresenter.swift
 
 while IFS= read -r source; do
   name="$(basename "$source")"
