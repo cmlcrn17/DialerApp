@@ -13,6 +13,14 @@ struct DialerApp: App {
         }
     }()
 
+    init() {
+        #if DIALER_ENABLE_LIVE_COMMUNICATION_KIT && canImport(LiveCommunicationKit)
+        if #available(iOS 26.0, *) {
+            _ = LiveCommunicationKitCellularAdapter.shared
+        }
+        #endif
+    }
+
     var body: some Scene {
         WindowGroup {
             RootView(callingService: DefaultDialerCallingService(

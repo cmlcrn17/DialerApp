@@ -25,6 +25,7 @@ final class CallCoordinator: ObservableObject {
 struct RootView: View {
     @Environment(\.modelContext) private var context
     @StateObject private var calls: CallCoordinator
+    @StateObject private var activeCallCenter = ActiveCallCenter.shared
     @AppStorage("didSeedDemoDirectory") private var didSeed = false
 
     init(callingService: any CallingService) {
@@ -43,6 +44,9 @@ struct RootView: View {
         .alert("Arama başlatılamadı", isPresented: Binding(
             get: { calls.errorMessage != nil }, set: { if !$0 { calls.errorMessage = nil } }
         )) { Button("Tamam", role: .cancel) {} } message: { Text(calls.errorMessage ?? "") }
+        .fullScreenCover(item: $activeCallCenter.current) { model in
+            ActiveCallView(model: model)
+        }
         .task { seedIfNeeded() }
     }
 
@@ -52,18 +56,7 @@ struct RootView: View {
             .map { ContactGroup(name: $0) }
         groups.forEach(context.insert)
         let people = [
-            ("Ahmet", "Çetinkaya", "Geobilgi", "Yazılım Takım Lideri", "+90 532 123 45 67", "Gebze, Kocaeli", [0, 6]),
-            ("Ayşe", "Coşkun", "Gemsan", "Satın Alma Müdürü", "0533 210 22 30", "Sakarya", [1, 5]),
-            ("Salih", "Yılmaz", "Sanko", "Bölge Müdürü", "5321234567", "Gaziantep", [1]),
-            ("Bilal", "Kaya", "Yücel Group", "Finans Uzmanı", "0544 231 42 53", "İstanbul", [2]),
-            ("Fatih", "Demir", "Guztech", "Ürün Tasarımcısı", "0555 245 67 89", "Ankara", [6]),
-            ("Şafak", "Aydın", "Geobilgi", "CBS Uzmanı", "0530 321 44 55", "Sakarya", [0, 5]),
-            ("Ceren", "Aksoy", "Gemsan", "İnsan Kaynakları", "0532 765 43 21", "İzmit", [3]),
-            ("Mehmet", "Öztürk", "Sanko", "Operasyon Direktörü", "0536 101 20 30", "Adana", [1]),
-            ("Elif", "Şahin", "Geobilgi", "Proje Yöneticisi", "0537 404 50 60", "Gebze, Kocaeli", [0, 6]),
-            ("Emre", "Arslan", "Guztech", "iOS Geliştirici", "0538 707 80 90", "İstanbul", [3]),
-            ("Zeynep", "Korkmaz", "Yücel Group", "Hukuk Müşaviri", "0539 112 23 34", "Bursa", [4]),
-            ("Murat", "Çelik", "Geobilgi", "Saha Mühendisi", "0505 556 67 78", "Akyazı, Sakarya", [0, 5])
+            ("Ceren", "Taşsın", "", "", "+90 (530) 737 00 83", "", [Int]())
         ]
         for (index, p) in people.enumerated() {
             let contact = Contact(firstName: p.0, lastName: p.1, company: p.2, jobTitle: p.3,

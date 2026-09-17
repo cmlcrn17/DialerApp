@@ -10,7 +10,7 @@ struct DefaultDialerCallingService: CallingService {
     func call(phoneNumber: String) async throws {
         #if DIALER_ENABLE_LIVE_COMMUNICATION_KIT && canImport(LiveCommunicationKit)
         if #available(iOS 26.0, *) {
-            try await LiveCommunicationKitCellularAdapter().call(phoneNumber: phoneNumber)
+            try await LiveCommunicationKitCellularAdapter.shared.call(phoneNumber: phoneNumber)
             return
         }
         #endif
