@@ -10,4 +10,23 @@ final class ActiveCallCenter: ObservableObject {
     @Published var current: ActiveCallViewModel?
 
     private init() {}
+
+    @discardableResult
+    func present(phoneNumber: String, contactName: String? = nil) -> ActiveCallViewModel {
+        let model = ActiveCallViewModel(
+            phoneNumber: PhoneNumber.formatted(phoneNumber),
+            contactName: contactName
+        )
+        model.onEndCall = { [weak self, weak model] in
+            guard let self, self.current?.id == model?.id else { return }
+            self.current = nil
+        }
+        current = model
+        return model
+    }
+
+    func dismiss(_ model: ActiveCallViewModel) {
+        guard current?.id == model.id else { return }
+        current = nil
+    }
 }

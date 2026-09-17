@@ -28,6 +28,10 @@ if grep -Eq 'Task\.sleep|fullScreenCover\(item: \$calls\.presentedContact' Diale
   exit 1
 fi
 
+grep -q 'ActiveCallCenter.shared.present' DialerApp/Views/RootView.swift
+grep -q 'ActiveCallCenter.shared.present' DialerApp/ViewModels/DialerViewModel.swift
+grep -q 'fullScreenCover(item: \$activeCallCenter.current)' DialerApp/Views/RootView.swift
+
 while IFS= read -r source; do
   name="$(basename "$source")"
   grep -q "$name" DialerApp.xcodeproj/project.pbxproj || {

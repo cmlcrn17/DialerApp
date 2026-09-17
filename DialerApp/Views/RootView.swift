@@ -9,13 +9,20 @@ final class CallCoordinator: ObservableObject {
     init(service: any CallingService) { self.service = service }
 
     func call(_ contact: Contact, context: ModelContext) {
+        let callScreen = ActiveCallCenter.shared.present(
+            phoneNumber: contact.primaryPhone,
+            contactName: contact.displayName
+        )
         Task {
             do {
+                // Sunumun arama API'si uygulamayı arka plana almadan önce çizilmesine izin ver.
+                await Task.yield()
                 try await service.call(phoneNumber: contact.primaryPhone)
                 context.insert(CallRecord(contactName: contact.displayName, phoneNumber: contact.primaryPhone,
                                           contactID: contact.id, company: contact.company))
                 try context.save()
             } catch {
+                ActiveCallCenter.shared.dismiss(callScreen)
                 errorMessage = error.localizedDescription
             }
         }

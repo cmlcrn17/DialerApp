@@ -47,17 +47,17 @@ final class LiveCommunicationKitCellularAdapter: NSObject, CallingService, Conve
         )
 
         activeConversationUUID = conversationUUID
-        let screen = ActiveCallViewModel(phoneNumber: PhoneNumber.formatted(normalizedNumber))
+        let screen = ActiveCallCenter.shared.current
+            ?? ActiveCallCenter.shared.present(phoneNumber: normalizedNumber)
         screen.onToggleMute = { [weak self] in self?.toggleMute() }
         screen.onToggleHold = { [weak self] in self?.toggleHold() }
         screen.onToggleSpeaker = { [weak self] in self?.toggleSpeaker() }
         screen.onEndCall = { [weak self] in self?.endCall() }
-        ActiveCallCenter.shared.current = screen
 
         do {
             try await conversationManager.perform([action])
         } catch {
-            ActiveCallCenter.shared.current = nil
+            ActiveCallCenter.shared.dismiss(screen)
             activeConversationUUID = nil
             throw error
         }
