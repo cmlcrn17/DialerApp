@@ -4,6 +4,7 @@ import Foundation
 final class ActiveCallViewModel: ObservableObject, Identifiable {
     let id = UUID()
     let phoneNumber: String
+    let contactName: String?
 
     @Published var isMuted = false
     @Published var isOnHold = false
@@ -17,8 +18,9 @@ final class ActiveCallViewModel: ObservableObject, Identifiable {
 
     private var timer: Timer?
 
-    init(phoneNumber: String) {
+    init(phoneNumber: String, contactName: String? = nil) {
         self.phoneNumber = phoneNumber
+        self.contactName = contactName
     }
 
     func startTimer() {

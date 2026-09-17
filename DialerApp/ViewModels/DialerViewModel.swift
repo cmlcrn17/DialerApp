@@ -24,13 +24,16 @@ final class DialerViewModel: ObservableObject {
         guard !isCalling else { return }
         isCalling = true
         defer { isCalling = false }
+        let callScreen = ActiveCallCenter.shared.present(phoneNumber: number, contactName: name)
         do {
+            await Task.yield()
             try await callingService.call(phoneNumber: number)
             if let normalized = PhoneNumber.normalized(number) {
                 context.insert(CallRecord(contactName: name ?? normalized, phoneNumber: normalized))
                 try? context.save()
             }
         } catch {
+            ActiveCallCenter.shared.dismiss(callScreen)
             errorMessage = error.localizedDescription
         }
     }

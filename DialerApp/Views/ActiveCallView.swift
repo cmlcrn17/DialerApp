@@ -39,10 +39,17 @@ struct ActiveCallView: View {
                             .foregroundStyle(.white)
                     )
 
-                Text(model.phoneNumber)
+                Text(model.contactName ?? model.phoneNumber)
                     .font(.title2.bold())
                     .foregroundStyle(.white)
                     .padding(.top, 22)
+
+                if model.contactName != nil {
+                    Text(model.phoneNumber)
+                        .font(.callout)
+                        .foregroundStyle(.white.opacity(0.75))
+                        .padding(.top, 6)
+                }
 
                 Text(model.formattedDuration)
                     .font(.callout.monospacedDigit())
